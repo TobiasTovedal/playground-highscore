@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Listbox } from "@headlessui/react"
+import { Listbox, Transition } from "@headlessui/react"
 
 const people = [
   { id: 1, name: "Durward Reynolds", unavailable: false },
@@ -14,18 +14,34 @@ function PointSelector() {
 
   return (
     <Listbox value={selectedPerson} onChange={setSelectedPerson}>
-      <Listbox.Button>{selectedPerson.name}</Listbox.Button>
-      <Listbox.Options>
-        {people.map((person) => (
-          <Listbox.Option
-            key={person.id}
-            value={person}
-            disabled={person.unavailable}
+      {({ open }) => (
+        <>
+          <Listbox.Button>{selectedPerson.name}</Listbox.Button>
+          {/*
+            Use the Transition + open render prop argument to add transitions.
+          */}
+          <Transition
+            show={open}
+            enter="transition duration-100 ease-out"
+            enterFrom="transform scale-95 opacity-0"
+            enterTo="transform scale-100 opacity-100"
+            leave="transition duration-75 ease-out"
+            leaveFrom="transform scale-100 opacity-100"
+            leaveTo="transform scale-95 opacity-0"
           >
-            {person.name}
-          </Listbox.Option>
-        ))}
-      </Listbox.Options>
+            {/*
+              Don't forget to add `static` to your Listbox.Options!
+            */}
+            <Listbox.Options static>
+              {people.map((person) => (
+                <Listbox.Option key={person.id} value={person}>
+                  {person.name}
+                </Listbox.Option>
+              ))}
+            </Listbox.Options>
+          </Transition>
+        </>
+      )}
     </Listbox>
   )
 }
