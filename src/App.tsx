@@ -1,7 +1,8 @@
 import React from "react"
 import PointSelector from "./PointSelectorComponent"
 
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+const possibleScores = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+const possibleLaps = [1, 2, 3, 4, 5]
 
 function App() {
   return (
@@ -28,8 +29,11 @@ function App() {
         </div>
         <div className="flex flex-col text-sm text-gray-500">
           Jag föll ner i hål nummer
-          <input className="border-2 rounded-md h-10 py-3 px-4 shadow-sm"></input>
-          <PointSelector numbers={numbers} />
+          <PointSelector numbers={possibleScores} />
+        </div>
+        <div className="flex flex-col text-sm text-gray-500">
+          På varv nummer
+          <PointSelector numbers={possibleLaps} />
         </div>
         <div className="flex justify-center pt-4">
           <button className="rounded-full bg-green-600 hover:bg-green-900 shadow-md w-3/4 h-12 text-white font-bold text-xl">
