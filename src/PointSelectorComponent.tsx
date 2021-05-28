@@ -2,11 +2,11 @@ import { Fragment, useState } from "react"
 import { Listbox, Transition } from "@headlessui/react"
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid"
 
-interface props {
+interface Props {
   numbers: number[]
 }
 
-export default function PointSelector(props: props) {
+export default function PointSelector(props: Props) {
   const people = props.numbers.map((n: number) => ({ name: n.toString() }))
   const [selected, setSelected] = useState(people[0])
 
@@ -29,12 +29,14 @@ export default function PointSelector(props: props) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {people.map((person, personIdx) => (
                 <Listbox.Option
                   key={personIdx}
                   className={({ active }) =>
-                    `${active ? "text-amber-900 bg-amber-100" : "text-gray-900"}
+                    `${
+                      active ? "text-yellow-600 bg-yellow-50" : "text-gray-900"
+                    }
                           cursor-default select-none relative py-2 pl-10 pr-4`
                   }
                   value={person}
