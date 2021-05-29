@@ -53,36 +53,42 @@ const players: { name: string; date: string; points: number }[] = [
     points: 10,
   },
 ]
+const possibleScores: number[] = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+]
+const possibleLaps: number[] = [1, 2, 3, 4, 5]
 
 function App() {
-  const possibleScores: number[] = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-  ]
-  const possibleLaps: number[] = [1, 2, 3, 4, 5]
-
   return (
     <div className="flex w-screen h-screen items-center justify-center bg-gradient-to-br from-yellow-400 via-red-500 to-pink-500">
       <div className="flex flex-col p-8 rounded-xl shadow-lg bg-white space-y-4">
-        <p className="text-xl font-semibold text-black">Highscore</p>
         <ScoreBoard />
-        <p className="text-xl font-semibold text-black pt-4">Nytt resultat</p>
-        <div className="flex flex-col text-sm text-gray-500">
-          Namn
-          <input className="border-2 rounded-md h-10 py-3 px-4"></input>
-        </div>
-        <div className="flex flex-col text-sm text-gray-500">
-          Jag föll ner i hål nummer
-          <PointSelector numbers={possibleScores} />
-        </div>
-        <div className="flex flex-col text-sm text-gray-500">
-          På varv nummer
-          <PointSelector numbers={possibleLaps} />
-        </div>
-        <div className="flex justify-center pt-4">
-          <button className="rounded-full bg-green-600 hover:bg-green-900 shadow-md w-3/4 h-12 text-white font-bold text-xl">
-            Skicka resultat
-          </button>
-        </div>
+        <NewResult />
+      </div>
+    </div>
+  )
+}
+
+const NewResult = () => {
+  return (
+    <div className="space-y-4">
+      <p className="text-xl font-semibold text-black pt-4">Nytt resultat</p>
+      <div className="flex flex-col text-sm text-gray-500">
+        Namn
+        <input className="border-2 rounded-md h-10 py-3 px-4"></input>
+      </div>
+      <div className="flex flex-col text-sm text-gray-500">
+        Jag föll ner i hål nummer
+        <PointSelector numbers={possibleScores} />
+      </div>
+      <div className="flex flex-col text-sm text-gray-500">
+        På varv nummer
+        <PointSelector numbers={possibleLaps} />
+      </div>
+      <div className="flex justify-center pt-4">
+        <button className="rounded-full bg-green-600 hover:bg-green-900 shadow-md w-3/4 h-12 text-white font-bold text-xl">
+          Skicka resultat
+        </button>
       </div>
     </div>
   )
@@ -91,13 +97,16 @@ function App() {
 function ScoreBoard() {
   return (
     <div>
-      {players.map((player) => (
-        <ScoreBoardRow
-          name={player.name}
-          date={player.date}
-          points={player.points}
-        />
-      ))}
+      <p className="text-xl font-semibold text-black pb-4">Highscore</p>
+      <div>
+        {players.map((player) => (
+          <ScoreBoardRow
+            name={player.name}
+            date={player.date}
+            points={player.points}
+          />
+        ))}
+      </div>
     </div>
   )
 }
