@@ -92,12 +92,28 @@ function ScoreBoard() {
   return (
     <div>
       {players.map((player) => (
-        <div className="flex m-1">
-          <div className="w-48">{player.name}</div>
-          <div className="w-24">{player.date}</div>
-          <div className="w-2 ml-4 mr-4 font-bold">{player.points}p</div>
-        </div>
+        <ScoreBoardRow
+          name={player.name}
+          date={player.date}
+          points={player.points}
+        />
       ))}
+    </div>
+  )
+}
+
+interface Props {
+  name: string
+  date: string
+  points: number
+}
+
+const ScoreBoardRow = (props: Props) => {
+  return (
+    <div className="flex m-1">
+      <div className="w-48">{props.name}</div>
+      <div className="w-24">{props.date}</div>
+      <div className="w-2 ml-4 mr-4 font-bold">{props.points}p</div>
     </div>
   )
 }
