@@ -1,4 +1,5 @@
-import PointSelector from "./PointSelector"
+import ScoreSelector from "./ScoreSelector"
+import React, { useState } from "react"
 
 interface Props {
   scores: number[]
@@ -6,27 +7,41 @@ interface Props {
 }
 
 const NewResult = (props: Props) => {
+  const [playerName, setPlayerName] = useState("")
+
+  const saveScore = (e: any) => {
+    e.preventDefault()
+    setPlayerName("")
+  }
+
   return (
-    <div className="space-y-4">
+    <form onSubmit={saveScore} className="space-y-4">
       <p className="text-xl font-semibold text-black pt-4">Nytt resultat</p>
       <div className="flex flex-col text-sm text-gray-500">
         Namn
-        <input className="border-2 rounded-md h-10 py-3 px-4"></input>
+        <input
+          onChange={(e) => setPlayerName(e.target.value)}
+          value={playerName}
+          className="border-2 rounded-md h-10 py-3 px-4"
+        ></input>
       </div>
       <div className="flex flex-col text-sm text-gray-500">
         Jag föll ner i hål nummer
-        <PointSelector numbers={props.scores} />
+        <ScoreSelector numbers={props.scores} />
       </div>
       <div className="flex flex-col text-sm text-gray-500">
         På varv nummer
-        <PointSelector numbers={props.laps} />
+        <ScoreSelector numbers={props.laps} />
       </div>
       <div className="flex justify-center pt-4">
-        <button className="rounded-full bg-green-600 hover:bg-green-900 shadow-md w-3/4 h-12 text-white font-bold text-xl">
+        <button
+          type="submit"
+          className="rounded-full bg-green-600 hover:bg-green-900 shadow-md w-3/4 h-12 text-white font-bold text-xl"
+        >
           Skicka resultat
         </button>
       </div>
-    </div>
+    </form>
   )
 }
 

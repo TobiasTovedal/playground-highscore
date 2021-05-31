@@ -6,7 +6,7 @@ interface Props {
   numbers: number[]
 }
 
-export default function PointSelector(props: Props) {
+export default function ScoreSelector(props: Props) {
   const people = props.numbers.map((n: number) => ({ name: n.toString() }))
   const [selected, setSelected] = useState(people[0])
 
