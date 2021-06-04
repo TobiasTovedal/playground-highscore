@@ -4,6 +4,7 @@ import { CheckIcon, SelectorIcon } from "@heroicons/react/solid"
 
 interface Props {
   numbers: number[]
+  onChange?: (a: number) => void
 }
 
 export default function ScoreSelector(props: Props) {

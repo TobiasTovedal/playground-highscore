@@ -8,6 +8,8 @@ interface Props {
 
 const NewResult = (props: Props) => {
   const [playerName, setPlayerName] = useState("")
+  const [scoreValue, setScoreValue] = useState(0)
+  const [lapValue, setLapValue] = useState(0)
 
   const saveScore = (e: any) => {
     e.preventDefault()
@@ -16,6 +18,9 @@ const NewResult = (props: Props) => {
 
   return (
     <form onSubmit={saveScore} className="space-y-4">
+      {playerName}
+      {scoreValue}
+      {lapValue}
       <p className="text-xl font-semibold text-black pt-4">Nytt resultat</p>
       <div className="flex flex-col text-sm text-gray-500">
         Namn
@@ -27,7 +32,10 @@ const NewResult = (props: Props) => {
       </div>
       <div className="flex flex-col text-sm text-gray-500">
         Jag föll ner i hål nummer
-        <ScoreSelector numbers={props.scores} />
+        <ScoreSelector
+          numbers={props.scores}
+          onChange={(value) => setScoreValue(value)}
+        />
       </div>
       <div className="flex flex-col text-sm text-gray-500">
         På varv nummer
