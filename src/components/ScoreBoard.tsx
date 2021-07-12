@@ -14,7 +14,7 @@ function ScoreBoard(props: Props) {
           <ScoreBoardRow
             name={player.name}
             date={player.date}
-            points={player.points}
+            score={player.score}
           />
         ))}
       </div>

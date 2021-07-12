@@ -1,8 +1,10 @@
 import React, { useState } from "react"
+import Player from "../interfaces/Player"
 
 interface Props {
   scores: number[]
   laps: number[]
+  onSave: (player: Player) => void
 }
 
 const NewResult = (props: Props) => {
@@ -10,25 +12,22 @@ const NewResult = (props: Props) => {
   const [scoreValue, setScoreValue] = useState(1)
   const [lapValue, setLapValue] = useState(1)
 
-  const saveScore = (e: any) => {
-    e.preventDefault()
-    setPlayerName("")
+  const player: Player = {
+    name: "Tobias Tovedal",
+    date: "2021-07-12",
+    score: 3,
   }
 
-  const array1 = [1, 4, 9, 16]
-
-  // pass a function to map
-  const map1 = array1.map((x) => x * 2)
-
-  console.log(map1)
-  // expected output: Array [2, 8, 18, 32]
+  const saveScore = (e: any) => {
+    e.preventDefault()
+    props.onSave(player)
+    setPlayerName("")
+    setScoreValue(1)
+    setLapValue(1)
+  }
 
   return (
     <form onSubmit={saveScore} className="space-y-4">
-      {/* For debugging */}
-      {playerName}
-      {scoreValue}
-      {lapValue}
       <p className="text-xl font-semibold text-black pt-4">Nytt resultat</p>
       <div className="flex flex-col text-sm text-gray-500">
         Namn
@@ -43,6 +42,7 @@ const NewResult = (props: Props) => {
         <select
           name="score"
           id="score"
+          value={scoreValue}
           onChange={(e) => setScoreValue(Number(e.target.value))}
           className="border-2 rounded-md h-10 py-1 px-4"
         >
@@ -56,6 +56,7 @@ const NewResult = (props: Props) => {
         <select
           name="laps"
           id="laps"
+          value={lapValue}
           onChange={(e) => setLapValue(Number(e.target.value))}
           className="border-2 rounded-md h-10 py-1 px-4"
         >
