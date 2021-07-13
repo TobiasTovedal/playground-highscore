@@ -2,6 +2,9 @@ import Player from "./interfaces/Player"
 import ScoreBoard from "./components/ScoreBoard"
 import NewResult from "./components/NewResult"
 
+import firebase from "firebase/app"
+import "firebase/firestore"
+
 function App() {
   const players: Player[] = [
     {
@@ -61,9 +64,7 @@ function App() {
   const possibleLaps: number[] = [1, 2, 3, 4, 5]
 
   const saveToServer = (player: Player) => {
-    console.log(`${player.name}`)
-    console.log(`${player.date}`)
-    console.log(`${player.score}`)
+    console.log(`${player.name} \n ${player.date} \n ${player.score}`)
   }
 
   return (
