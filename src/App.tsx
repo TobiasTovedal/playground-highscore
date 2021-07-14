@@ -4,6 +4,7 @@ import NewResult from "./components/NewResult"
 
 import firebase from "firebase/app"
 import "firebase/firestore"
+import { firebaseConfig } from "./firebaseConfig"
 
 function App() {
   const players: Player[] = [
@@ -63,8 +64,19 @@ function App() {
   ]
   const possibleLaps: number[] = [1, 2, 3, 4, 5]
 
-  const saveToServer = (player: Player) => {
+  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig)
+  else firebase.app()
+
+  var db = firebase.firestore()
+
+  const saveToServer = async (player: Player) => {
     console.log(`${player.name} \n ${player.date} \n ${player.score}`)
+
+    await db.collection("players").add({
+      name: player.name,
+      date: player.date,
+      score: player.score,
+    })
   }
 
   return (
