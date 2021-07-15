@@ -18,10 +18,8 @@ function App() {
   if (!firebase.apps.length) firebase.initializeApp(firebaseConfig)
   else firebase.app()
 
-  var db = firebase.firestore()
-
+  const db = firebase.firestore()
   const query = db.collection("players").orderBy("score", "desc").limit(10)
-
   const [playerDbObjects] = useCollectionData(query)
 
   playerDbObjects?.forEach((playerobject) => {
