@@ -31,10 +31,10 @@ function App() {
   const [playerDbObjects] = useCollectionData(query)
 
   playerDbObjects?.forEach((playerobject) => {
-    const date: Date = playerobject.createdAt.toDate()
+    const date: Date = playerobject.createdAt?.toDate()
     const player: Player = {
       name: playerobject.name,
-      date: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
+      date: `${date?.getFullYear()}-${date?.getMonth()}-${date?.getDate()}`,
       score: playerobject.score
     }
 
