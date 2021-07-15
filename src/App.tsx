@@ -10,13 +10,12 @@ import { useCollectionData } from "react-firebase-hooks/firestore"
 
 function App() {
   let players: Player[] = []
+  const possibleLaps: number[] = [1, 2, 3, 4, 5]
   const possibleScores: number[] = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
   ]
-  const possibleLaps: number[] = [1, 2, 3, 4, 5]
 
   if (!firebase.apps.length) firebase.initializeApp(firebaseConfig)
-  else firebase.app()
 
   const db = firebase.firestore()
   const query = db.collection("players").orderBy("score", "desc").limit(10)
@@ -24,6 +23,7 @@ function App() {
 
   playerDbObjects?.forEach((playerobject) => {
     const date: Date = playerobject.createdAt?.toDate()
+
     const player: Player = {
       name: playerobject.name,
       date: `${date?.getFullYear()}-${date?.getMonth()}-${date?.getDate()}`,
@@ -40,9 +40,7 @@ function App() {
       score: player.score,
     })
   }
-
- 
-
+  
   return (
     <div className="flex w-screen h-screen items-center justify-center bg-gradient-to-br from-yellow-400 via-red-500 to-pink-500">
       <div className="flex flex-col p-8 rounded-xl shadow-lg bg-white space-y-4">
