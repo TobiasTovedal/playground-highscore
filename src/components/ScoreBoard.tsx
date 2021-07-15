@@ -6,6 +6,7 @@ interface Props {
 }
 
 function ScoreBoard(props: Props) {
+  console.log(props.players)
   return (
     <div>
       <p className="text-xl font-semibold text-black pb-4">Highscore</p>

@@ -6,58 +6,15 @@ import firebase from "firebase/app"
 import "firebase/firestore"
 import { firebaseConfig } from "./firebaseConfig"
 
+import { useCollectionData } from "react-firebase-hooks/firestore"
+
 function App() {
-  const players: Player[] = [
+  let players: Player[] = [
     {
-      name: "Beauden David",
-      date: "2021-01-04",
-      score: 1,
-    },
-    {
-      name: "Eli Contreras",
-      date: "2021-02-04",
-      score: 2,
-    },
-    {
-      name: "Daisie Norman",
-      date: "2021-03-04",
-      score: 3,
-    },
-    {
-      name: "Honey Kaur",
-      date: "2021-03-04",
-      score: 4,
-    },
-    {
-      name: "Makenzie Franks",
-      date: "2021-03-04",
-      score: 5,
-    },
-    {
-      name: "Aryan Mckenna",
-      date: "2021-03-04",
-      score: 6,
-    },
-    {
-      name: "Herbert Patel",
-      date: "2021-03-04",
-      score: 7,
-    },
-    {
-      name: "Kingsley Benjamin",
-      date: "2021-03-04",
-      score: 8,
-    },
-    {
-      name: "Pablo Sheldon",
-      date: "2021-03-04",
-      score: 9,
-    },
-    {
-      name: "Jeremy Pierce",
-      date: "2021-03-04",
-      score: 10,
-    },
+      name: "",
+      date: "",
+      score: 0
+    }
   ]
   const possibleScores: number[] = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
@@ -69,15 +26,30 @@ function App() {
 
   var db = firebase.firestore()
 
-  const saveToServer = async (player: Player) => {
-    console.log(`${player.name} \n ${player.date} \n ${player.score}`)
+  const query = db.collection("players").orderBy("score", "desc").limit(10)
 
+  const [playerDbObjects] = useCollectionData(query)
+
+  playerDbObjects?.forEach((playerobject) => {
+    const date: Date = playerobject.createdAt.toDate()
+    const player: Player = {
+      name: playerobject.name,
+      date: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
+      score: playerobject.score
+    }
+
+    players.push(player)
+  })
+
+  const saveToServer = async (player: Player) => {
     await db.collection("players").add({
       name: player.name,
-      date: player.date,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       score: player.score,
     })
   }
+
+ 
 
   return (
     <div className="flex w-screen h-screen items-center justify-center bg-gradient-to-br from-yellow-400 via-red-500 to-pink-500">
