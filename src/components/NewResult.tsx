@@ -12,14 +12,6 @@ const NewResult = (props: Props) => {
   const [scoreValue, setScoreValue] = useState(1)
   const [lapValue, setLapValue] = useState(1)
 
-  /*
-  let player: Player = {
-    name: "",
-    date: "",
-    score: 0,
-  }
-  */
-
   const saveScore = (e: any) => {
     e.preventDefault()
 
@@ -28,6 +20,7 @@ const NewResult = (props: Props) => {
       date: "Some date",
       score: scoreValue + (lapValue - 1) * 15,
     }
+    
     props.onSave(player)
 
     setPlayerName("")
